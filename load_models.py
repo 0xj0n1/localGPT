@@ -48,17 +48,7 @@ def load_quantized_model_gguf_ggml(model_id, model_basename, device_type, loggin
             "max_tokens": MAX_NEW_TOKENS,
             "n_batch": N_BATCH,  # set this based on your GPU & CPU RAM
         }
-        if device_type.lower() == "mps":
-            kwargs["n_gpu_layers"] = 1
-        if device_type.lower() == "cuda":
-            kwargs["n_gpu_layers"] = N_GPU_LAYERS  # set this based on your GPU
-
-        return LlamaCpp(**kwargs)
-    except TypeError:
-        if "ggml" in model_basename:
-            logging.INFO("If you were using GGML model, LLAMA-CPP Dropped Support, Use GGUF Instead")
-        return None
-
+       
 
 def load_quantized_model_qptq(model_id, model_basename, device_type, logging):
     """
